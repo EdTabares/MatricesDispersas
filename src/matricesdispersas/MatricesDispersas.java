@@ -70,6 +70,9 @@ public class MatricesDispersas {
                     case 3: T.sumarColumnas();
                         break;
                     case 4: row = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de fila (Considerela desde 0)"));
+                            col = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de Columna (Considerela desde 0)"));
+                            data = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato"));
+                            T.insertarDato(row, col, data);
                         break;
                     case 5:
                         break;
