@@ -103,6 +103,20 @@ public class Tripleta {
         }
     }
 
+    public void redimensionar() {
+        cantDatos = cantDatos + 1;
+        int aux[][] = new int[cantDatos+1][3];
+        aux[0][0] = filas;
+        aux[0][1] = columnas;
+        aux[0][2] = cantDatos;
+        for (int i = 1; i < (cantDatos); i++) {
+            for (int j = 0; j < 3; j++) {
+                aux[i][j] = trip[i][j];
+            }
+        }
+        trip = aux;
+    }
+
     public void mostrarTripleta() {
         //  for (int i = 0; i <= cantDatos; i++) {
         // System.out.print(trip[i][0] + "\t" + trip[i][1] + "\t" + trip[i][2]);
@@ -153,9 +167,34 @@ public class Tripleta {
         }
         JOptionPane.showMessageDialog(null, "**** SUMAS COLUMNAS ****\n\n" + aux);
     }
-    
-    public void insertarDato(int row, int col, int data){
-        //Esto es una prueba de git
+
+    public void insertarDato(int row, int col, int data) {
+     int i=1,j=0;
+     System.out.println(cantDatos);
+     while(i < (cantDatos+1) && trip[i][0]< row){
+         i=i+1;
+         System.out.println(i);
+     }
+     while(i < (cantDatos+1) && trip[i][0]==row &&trip[i][1]<col){
+         i=i+1;
+         System.out.println(i);
+     }
+        if (i<(cantDatos+1) && trip[i][0]==row && trip[i][1]==col) {
+            JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
+        }
+        else{
+            redimensionar();
+            System.out.println(cantDatos);
+            for (int k = cantDatos; k > i; k--) {
+                trip[k][0] = trip[k-1][0];
+                trip[k][1] = trip[k-1][1];
+                trip[k][2] = trip[k-1][2];
+            }
+            trip[i][0]=row;
+            trip[i][1]=col;
+            trip[i][2]=data;
+        }
+        mostrarTripleta();
     }
 
 }

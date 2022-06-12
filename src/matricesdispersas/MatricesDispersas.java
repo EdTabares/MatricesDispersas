@@ -45,7 +45,7 @@ public class MatricesDispersas {
     }
 
     public static void menuTripleta() {
-        int[][]mat = leerArchivo();
+        int[][] mat = leerArchivo();
         int row, data, col;
         Tripleta T = new Tripleta(mat);
         int opcion = -1;
@@ -63,41 +63,50 @@ public class MatricesDispersas {
             try {
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcion) {
-                    case 1: T.mostrarTripleta();
+                    case 1:
+                        T.mostrarTripleta();
                         break;
-                    case 2: T.sumarFilas();
+                    case 2:
+                        T.sumarFilas();
                         break;
-                    case 3: T.sumarColumnas();
+                    case 3:
+                        T.sumarColumnas();
                         break;
-                    case 4: row = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de fila (Considerela desde 0)"));
-                            col = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de Columna (Considerela desde 0)"));
-                            data = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato"));
+                    case 4:
+                        row = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de fila (Considerela desde 0)"));
+                        col = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de Columna (Considerela desde 0)"));
+                        data = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato"));
+                        if (row > T.getFilas() || col > T.getColumnas()) {
+                            JOptionPane.showMessageDialog(null, "La fila o Columna esta por fuera del tamaño de la Matriz");
+                        } else {
                             T.insertarDato(row, col, data);
+                        }
                         break;
                     case 5:
                         break;
                     case 6:
                         break;
-                    case 7: menuppal();
+                    case 7:
+                        menuppal();
                         break;
-                    case 0: System.exit(0);
+                    case 0:
+                        System.exit(0);
                         break;
                     default:
                         JOptionPane.showMessageDialog(null, "opcion no válida");
                 }
-            }catch(NumberFormatException ex){
-                JOptionPane.showMessageDialog(null,"opcion no válida"); 
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "opcion no válida");
             }
+        } while (opcion != 0);
     }
-    while(opcion!=0);
+
+    public static void menuForma1() {
+
     }
-    
-    public static void menuForma1(){
-        
-    }
-    
-    public static void menuForma2(){
-        
+
+    public static void menuForma2() {
+
     }
 
     public static int[][] leerArchivo() {
@@ -125,13 +134,13 @@ public class MatricesDispersas {
                     System.out.print(matrix[i][j] + " | ");
                 }
                 System.out.println("\n");
-            }     
-          //  Tripleta t = new Tripleta(matrix);
+            }
+            //  Tripleta t = new Tripleta(matrix);
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo");
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Warning");
-        }             
+        }
         return matrix;
     }
 
