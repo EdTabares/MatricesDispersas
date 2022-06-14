@@ -124,7 +124,10 @@ public class MatricesDispersas {
                                 JOptionPane.showMessageDialog(null, "opcion no válida");
                             }
                         } while (op != 0);
-                    case 6:
+                    case 6: 
+                        int [][] mat2 = leerArchivo("MatrizDos");
+                        Tripleta T2 = new Tripleta(mat2);
+                        T.sumarTripleta(T2);
                         break;
                     case 7:
                         menuppal();
