@@ -45,8 +45,8 @@ public class MatricesDispersas {
     }
 
     public static void menuTripleta() {
-        int[][] mat = leerArchivo();
-        int row, data, col;
+        int[][] mat = leerArchivo("Matriz.txt");
+        int row, col, data;
         Tripleta T = new Tripleta(mat);
         int opcion = -1;
         String menu = "***MENU TRIPLETA***\n"
@@ -83,7 +83,47 @@ public class MatricesDispersas {
                         }
                         break;
                     case 5:
-                        break;
+                        int op = -1;
+                        String menudos = "***ELIMINAR***\n"
+                                + "1- Eliminar por posición\n"
+                                + "2- Eliminar por dato\n"
+                                + "3- Volver al menú anterior\n"
+                                + "0- Salir";
+
+                        do {
+                            try {
+                                op = Integer.parseInt(JOptionPane.showInputDialog(menudos));
+                                switch (op) {
+                                    case 1:
+                                        row = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de fila (Considerela desde 0)"));
+                                        col = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de Columna (Considerela desde 0)"));
+                                        if (row > T.getFilas() || col > T.getColumnas()) {
+                                            JOptionPane.showMessageDialog(null, "La fila o Columna esta por fuera del tamaño de la Matriz");
+                                        } else {
+                                            T.eliminar(row, col);
+                                        }
+                                        break;
+                                    case 2:
+                                        data = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato que desea eliminar"));
+                                        if (data == 0) {
+                                            JOptionPane.showMessageDialog(null, "Ingrese un valor diferente de cero");
+                                        } else {
+                                            T.eliminar(data);
+                                        }
+                                        break;
+                                    case 3:
+                                        menuTripleta();
+                                        break;
+                                    case 0:
+                                        System.exit(0);
+                                        break;
+                                    default:
+                                        JOptionPane.showMessageDialog(null, "opcion no válida");
+                                }
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(null, "opcion no válida");
+                            }
+                        } while (op != 0);
                     case 6:
                         break;
                     case 7:
@@ -109,10 +149,10 @@ public class MatricesDispersas {
 
     }
 
-    public static int[][] leerArchivo() {
+    public static int[][] leerArchivo(String nameFile) {
         int[][] matrix = null;
         try {
-            FileReader r = new FileReader("Matriz.txt");
+            FileReader r = new FileReader(nameFile);
             BufferedReader buffer = new BufferedReader(r);
 
             String temp = "";

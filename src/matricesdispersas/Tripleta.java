@@ -103,13 +103,13 @@ public class Tripleta {
         }
     }
 
-    public void redimensionar() {
-        cantDatos = cantDatos + 1;
-        int aux[][] = new int[cantDatos+1][3];
+    public void redimensionar(int x) {
+        cantDatos = cantDatos + x;
+        int aux[][] = new int[cantDatos + 1][3];
         aux[0][0] = filas;
         aux[0][1] = columnas;
         aux[0][2] = cantDatos;
-        for (int i = 1; i < (cantDatos); i++) {
+        for (int i = 1; i < (cantDatos + 1); i++) {
             for (int j = 0; j < 3; j++) {
                 aux[i][j] = trip[i][j];
             }
@@ -169,32 +169,66 @@ public class Tripleta {
     }
 
     public void insertarDato(int row, int col, int data) {
-     int i=1,j=0;
-     System.out.println(cantDatos);
-     while(i < (cantDatos+1) && trip[i][0]< row){
-         i=i+1;
-         System.out.println(i);
-     }
-     while(i < (cantDatos+1) && trip[i][0]==row &&trip[i][1]<col){
-         i=i+1;
-         System.out.println(i);
-     }
-        if (i<(cantDatos+1) && trip[i][0]==row && trip[i][1]==col) {
-            JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
+        int i = 1;
+        while (i < (cantDatos + 1) && trip[i][0] < row) {
+            i = i + 1;
         }
-        else{
-            redimensionar();
-            System.out.println(cantDatos);
+        while (i < (cantDatos + 1) && trip[i][0] == row && trip[i][1] < col) {
+            i = i + 1;
+        }
+        if (i < (cantDatos + 1) && trip[i][0] == row && trip[i][1] == col) {
+            JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
+        } else {
+            redimensionar(1); //Envia 1 para aumentar en una fila en la tripleta
             for (int k = cantDatos; k > i; k--) {
-                trip[k][0] = trip[k-1][0];
-                trip[k][1] = trip[k-1][1];
-                trip[k][2] = trip[k-1][2];
+                trip[k][0] = trip[k - 1][0];
+                trip[k][1] = trip[k - 1][1];
+                trip[k][2] = trip[k - 1][2];
             }
-            trip[i][0]=row;
-            trip[i][1]=col;
-            trip[i][2]=data;
+            trip[i][0] = row;
+            trip[i][1] = col;
+            trip[i][2] = data;
         }
         mostrarTripleta();
+    }
+
+    public void eliminar(int row, int col) {
+        int i = 1;
+        while (i < (cantDatos + 1) && trip[i][0] < row) {
+            i = i + 1;
+        }
+        while (i < (cantDatos + 1) && trip[i][0] == row && trip[i][1] < col) {
+            i = i + 1;
+        }
+        System.out.println(cantDatos);
+        for (int k = i; k < (cantDatos); k++) {
+            trip[k][0] = trip[k + 1][0];
+            trip[k][1] = trip[k + 1][1];
+            trip[k][2] = trip[k + 1][2];
+        }
+        redimensionar(-1);
+        mostrarTripleta();
+    }
+
+    public void eliminar(int data) {
+        int i = 0;
+
+        while (i < cantDatos) {
+            if (i < cantDatos && trip[i][2] == data) {
+                for (int k = i; k < (cantDatos); k++) {
+                    trip[k][0] = trip[k + 1][0];
+                    trip[k][1] = trip[k + 1][1];
+                    trip[k][2] = trip[k + 1][2];
+                }
+                redimensionar(-1);
+                mostrarTripleta();
+            }
+            i++;
+        }
+    }
+    
+    public void sumarTripleta(Tripleta T2){
+        
     }
 
 }
