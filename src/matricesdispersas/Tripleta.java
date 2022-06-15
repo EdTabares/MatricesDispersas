@@ -236,82 +236,64 @@ public class Tripleta {
 
         int i = 1, j = 1, k = 1;
 
-        while (k < (cantDatos3 + 1) && i < cantDatos || j < T2.cantDatos) {
+        while (k < (cantDatos3) && i <= cantDatos && j <= T2.cantDatos) {  /// Cambio el +1
             if (trip[i][0] == T2.trip[j][0] && trip[i][1] == T2.trip[j][1]) {
                 tripSuma.trip[k][0] = trip[i][0];
                 tripSuma.trip[k][1] = trip[i][1];
                 tripSuma.trip[k][2] = trip[i][2] + T2.trip[j][2];
-                if (i < cantDatos || j < T2.cantDatos) {
-                    i++;
-                    j++;
-                    k++;
-                }
-                
+                i++;
+                j++;
+                k++;
 
             } else if (trip[i][0] == T2.trip[j][0] && trip[i][1] < T2.trip[j][1]) {
                 tripSuma.trip[k][0] = trip[i][0];
                 tripSuma.trip[k][1] = trip[i][1];
                 tripSuma.trip[k][2] = trip[i][2];
-                if (i < cantDatos) {
-                    i++;
-                    k++;
-                }
-                
+                i++;
+                k++;
 
             } else if (trip[i][0] == T2.trip[j][0] && trip[i][1] > T2.trip[j][1]) {
                 tripSuma.trip[k][0] = T2.trip[j][0];
                 tripSuma.trip[k][1] = T2.trip[j][1];
                 tripSuma.trip[k][2] = T2.trip[j][2];
-                if (j < T2.cantDatos) {
-                    j++;
-                    k++;
-                }
-                
+                j++;
+                k++;
 
             } else if (trip[i][0] < T2.trip[j][0] && trip[i][1] == T2.trip[j][1]) {
                 tripSuma.trip[k][0] = trip[i][0];
                 tripSuma.trip[k][1] = trip[i][1];
                 tripSuma.trip[k][2] = trip[i][2];
-                if (i < cantDatos) {
-                    i++;
-                    k++;
-                }
-                
+                i++;
+                k++;
 
             } else if (trip[i][0] > T2.trip[j][0] && trip[i][1] == T2.trip[j][1]) {
                 tripSuma.trip[k][0] = T2.trip[j][0];
                 tripSuma.trip[k][1] = T2.trip[j][1];
                 tripSuma.trip[k][2] = T2.trip[j][2];
-                if (j < T2.cantDatos) {
-                    j++;
-                    k++;
-                }
-                
+                j++;
+                k++;
 
             } else if (trip[i][0] < T2.trip[j][0] && trip[i][1] < T2.trip[j][1]) {
                 tripSuma.trip[k][0] = trip[i][0];
                 tripSuma.trip[k][1] = trip[i][1];
                 tripSuma.trip[k][2] = trip[i][2];
-                if (i < cantDatos) {
-                    i++;
-                    k++;
-                }
-                
+                i++;
+                k++;
 
             } else {
                 tripSuma.trip[k][0] = T2.trip[j][0];
                 tripSuma.trip[k][1] = T2.trip[j][1];
                 tripSuma.trip[k][2] = T2.trip[j][2];
-                if (j < T2.cantDatos) {
-                    j++;
-                    k++;
-                }
-                
+                j++;
+                k++;
 
             }
 
         }
-        cantDatos3 = k;
+        cantDatos3=k;
+        tripSuma.setFilas(trip[0][0]);
+        tripSuma.setColumnas(trip[0][0]);
+        tripSuma.setCantDatos(k);
         tripSuma.mostrarTripleta();
     }
 
