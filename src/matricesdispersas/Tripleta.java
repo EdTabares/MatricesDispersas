@@ -7,30 +7,28 @@ public class Tripleta {
     private int filas;
     private int columnas;
     private int cantDatos = 0;
-    private int mat[][];
+    // private int mat[][];
     private int trip[][];
 
     public Tripleta() {
 
     }
 
-    public Tripleta(int n, int m, int cantDatos, int mat[][]) {
-        filas = n;
-        columnas = m;
-        this.cantDatos = cantDatos;
-        trip = new int[cantDatos][3];
+    public Tripleta(int cantDatos3, int filas, int columnas) {
+        trip = new int[cantDatos3][3];
         trip[0][0] = filas;
         trip[0][1] = columnas;
-        trip[0][2] = this.cantDatos; // Validar si lo inicialiamos en cero según el Blog ¿?
+        trip[0][2] = cantDatos3;
+
     }
 
     public Tripleta(int[][] mat) {
-        this.mat = mat;
-        cantDatos = calcularCantDatos();
+        // int[][] auxMat = mat;
+        cantDatos = calcularCantDatos(mat);
         trip = new int[cantDatos + 1][3];
-        columnas = this.mat.length; // Cambie entre columnas y filas 
-        filas = this.mat[0].length;
-        generarTripleta();
+        columnas = mat.length; // Cambie entre columnas y filas 
+        filas = mat[0].length;
+        generarTripleta(mat);
     }
 
     public int getFilas() {
@@ -57,14 +55,13 @@ public class Tripleta {
         this.cantDatos = cantDatos;
     }
 
-    public int[][] getMat() {
-        return mat;
-    }
-
-    public void setMat(int[][] mat) {
-        this.mat = mat;
-    }
-
+//    public int[][] getMat() {
+//        return mat;
+//    }
+//
+//    public void setMat(int[][] mat) {
+//        this.mat = mat;
+//    }
     public int[][] getTrip() {
         return trip;
     }
@@ -73,7 +70,7 @@ public class Tripleta {
         this.trip = trip;
     }
 
-    private int calcularCantDatos() {
+    private int calcularCantDatos(int mat[][]) {
         for (int i = 0; i < mat[0].length; i++) {
             for (int j = 0; j < mat.length; j++) {
                 if (mat[i][j] != 0) {
@@ -84,7 +81,7 @@ public class Tripleta {
         return cantDatos;
     }
 
-    private void generarTripleta() {
+    private void generarTripleta(int mat[][]) {
         trip[0][0] = filas;
         trip[0][1] = columnas;
         trip[0][2] = cantDatos;
@@ -124,12 +121,17 @@ public class Tripleta {
         //       }
 
         String Tripleta = "";
-        for (int i = 0; i < (cantDatos + 1); i++) {
-            for (int j = 0; j < 3; j++) {
-                Tripleta += trip[i][j];
-                Tripleta += "         ";
+        int i = 0;
+        if (trip[i][2] != 0) {
+            for (i = 0; i < (cantDatos + 1); i++) {
+                for (int j = 0; j < 3; j++) {
+                    Tripleta += trip[i][j];
+                    Tripleta += "         ";
+                }
+
+                Tripleta += "\n";
+
             }
-            Tripleta += "\n";
         }
         JOptionPane.showMessageDialog(null, "*** TRIPLETA ***\n\n" + Tripleta);
     }
@@ -226,9 +228,91 @@ public class Tripleta {
             i++;
         }
     }
-    
-    public void sumarTripleta(Tripleta T2){
-        
+
+    public void sumarTripleta(Tripleta T2) {
+
+        int cantDatos3 = trip[0][0] * trip[0][1];
+        Tripleta tripSuma = new Tripleta(cantDatos3, T2.getFilas(), T2.getColumnas());
+
+        int i = 1, j = 1, k = 1;
+
+        while (k < (cantDatos3 + 1) && i < cantDatos || j < T2.cantDatos) {
+            if (trip[i][0] == T2.trip[j][0] && trip[i][1] == T2.trip[j][1]) {
+                tripSuma.trip[k][0] = trip[i][0];
+                tripSuma.trip[k][1] = trip[i][1];
+                tripSuma.trip[k][2] = trip[i][2] + T2.trip[j][2];
+                if (i < cantDatos || j < T2.cantDatos) {
+                    i++;
+                    j++;
+                    k++;
+                }
+                
+
+            } else if (trip[i][0] == T2.trip[j][0] && trip[i][1] < T2.trip[j][1]) {
+                tripSuma.trip[k][0] = trip[i][0];
+                tripSuma.trip[k][1] = trip[i][1];
+                tripSuma.trip[k][2] = trip[i][2];
+                if (i < cantDatos) {
+                    i++;
+                    k++;
+                }
+                
+
+            } else if (trip[i][0] == T2.trip[j][0] && trip[i][1] > T2.trip[j][1]) {
+                tripSuma.trip[k][0] = T2.trip[j][0];
+                tripSuma.trip[k][1] = T2.trip[j][1];
+                tripSuma.trip[k][2] = T2.trip[j][2];
+                if (j < T2.cantDatos) {
+                    j++;
+                    k++;
+                }
+                
+
+            } else if (trip[i][0] < T2.trip[j][0] && trip[i][1] == T2.trip[j][1]) {
+                tripSuma.trip[k][0] = trip[i][0];
+                tripSuma.trip[k][1] = trip[i][1];
+                tripSuma.trip[k][2] = trip[i][2];
+                if (i < cantDatos) {
+                    i++;
+                    k++;
+                }
+                
+
+            } else if (trip[i][0] > T2.trip[j][0] && trip[i][1] == T2.trip[j][1]) {
+                tripSuma.trip[k][0] = T2.trip[j][0];
+                tripSuma.trip[k][1] = T2.trip[j][1];
+                tripSuma.trip[k][2] = T2.trip[j][2];
+                if (j < T2.cantDatos) {
+                    j++;
+                    k++;
+                }
+                
+
+            } else if (trip[i][0] < T2.trip[j][0] && trip[i][1] < T2.trip[j][1]) {
+                tripSuma.trip[k][0] = trip[i][0];
+                tripSuma.trip[k][1] = trip[i][1];
+                tripSuma.trip[k][2] = trip[i][2];
+                if (i < cantDatos) {
+                    i++;
+                    k++;
+                }
+                
+
+            } else {
+                tripSuma.trip[k][0] = T2.trip[j][0];
+                tripSuma.trip[k][1] = T2.trip[j][1];
+                tripSuma.trip[k][2] = T2.trip[j][2];
+                if (j < T2.cantDatos) {
+                    j++;
+                    k++;
+                }
+                
+
+            }
+
+        }
+        cantDatos3 = k;
+        tripSuma.mostrarTripleta();
     }
 
 }

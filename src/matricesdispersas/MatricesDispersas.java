@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class MatricesDispersas {
-
+    
     public static void main(String[] args) {
-
+        
         menuppal();
     }
-
+    
     public static void menuppal() {
         int opcion = 0;
         String menu = "***MENU PRINCIPAL MATRICES DISPERSAS***\n"
@@ -37,13 +37,13 @@ public class MatricesDispersas {
                     default:
                         JOptionPane.showMessageDialog(null, "Opción no válida");
                 }
-
+                
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Opción no válida");
             }
         } while (opcion != 0);
     }
-
+    
     public static void menuTripleta() {
         int[][] mat = leerArchivo("Matriz.txt");
         int row, col, data;
@@ -58,7 +58,7 @@ public class MatricesDispersas {
                 + "6- Sumar 2 tripletas\n"
                 + "7- Volver al menú anterior\n"
                 + "0- Salir";
-
+        
         do {
             try {
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
@@ -89,7 +89,7 @@ public class MatricesDispersas {
                                 + "2- Eliminar por dato\n"
                                 + "3- Volver al menú anterior\n"
                                 + "0- Salir";
-
+                        
                         do {
                             try {
                                 op = Integer.parseInt(JOptionPane.showInputDialog(menudos));
@@ -124,10 +124,14 @@ public class MatricesDispersas {
                                 JOptionPane.showMessageDialog(null, "opcion no válida");
                             }
                         } while (op != 0);
-                    case 6: 
-                        int [][] mat2 = leerArchivo("MatrizDos");
+                    case 6:                        
+                        int[][] mat2 = leerArchivo("MatrizDos.txt");
                         Tripleta T2 = new Tripleta(mat2);
-                        T.sumarTripleta(T2);
+                        if (T.getFilas() != T2.getFilas() && T.getColumnas() != T.getColumnas()) {
+                            JOptionPane.showMessageDialog(null, "No válido. Las matrices deben tener el mismo tamaño");
+                        } else {
+                            T.sumarTripleta(T2);
+                        }                        
                         break;
                     case 7:
                         menuppal();
@@ -143,24 +147,24 @@ public class MatricesDispersas {
             }
         } while (opcion != 0);
     }
-
+    
     public static void menuForma1() {
-
+        
     }
-
+    
     public static void menuForma2() {
-
+        
     }
-
+    
     public static int[][] leerArchivo(String nameFile) {
         int[][] matrix = null;
         try {
             FileReader r = new FileReader(nameFile);
             BufferedReader buffer = new BufferedReader(r);
-
+            
             String temp = "";
             ArrayList<String> lines = new ArrayList<>();
-
+            
             while ((temp = buffer.readLine()) != null) {
                 lines.add(temp);
             }
@@ -186,5 +190,5 @@ public class MatricesDispersas {
         }
         return matrix;
     }
-
+    
 }
