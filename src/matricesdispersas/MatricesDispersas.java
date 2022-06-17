@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class MatricesDispersas {
-    
+
     public static void main(String[] args) {
-        
+
         menuppal();
     }
-    
+
     public static void menuppal() {
         int opcion = 0;
         String menu = "***MENU PRINCIPAL MATRICES DISPERSAS***\n"
@@ -37,13 +37,13 @@ public class MatricesDispersas {
                     default:
                         JOptionPane.showMessageDialog(null, "Opción no válida");
                 }
-                
+
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(null, "Opción no válida");
             }
         } while (opcion != 0);
     }
-    
+
     public static void menuTripleta() {
         int[][] mat = leerArchivo("Matriz.txt");
         int row, col, data;
@@ -58,7 +58,7 @@ public class MatricesDispersas {
                 + "6- Sumar 2 tripletas\n"
                 + "7- Volver al menú anterior\n"
                 + "0- Salir";
-        
+
         do {
             try {
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
@@ -89,7 +89,7 @@ public class MatricesDispersas {
                                 + "2- Eliminar por dato\n"
                                 + "3- Volver al menú anterior\n"
                                 + "0- Salir";
-                        
+
                         do {
                             try {
                                 op = Integer.parseInt(JOptionPane.showInputDialog(menudos));
@@ -124,14 +124,14 @@ public class MatricesDispersas {
                                 JOptionPane.showMessageDialog(null, "opcion no válida");
                             }
                         } while (op != 0);
-                    case 6:                        
+                    case 6:
                         int[][] mat2 = leerArchivo("MatrizDos.txt");
                         Tripleta T2 = new Tripleta(mat2);
                         if (T.getFilas() != T2.getFilas() && T.getColumnas() != T.getColumnas()) {
                             JOptionPane.showMessageDialog(null, "No válido. Las matrices deben tener el mismo tamaño");
                         } else {
                             T.sumarTripleta(T2);
-                        }                        
+                        }
                         break;
                     case 7:
                         menuppal();
@@ -147,24 +147,97 @@ public class MatricesDispersas {
             }
         } while (opcion != 0);
     }
-    
+
     public static void menuForma1() {
-        
+
     }
-    
+
     public static void menuForma2() {
-        
+
+        int[][] mat = leerArchivo("Matriz.txt");
+        int row = mat.length;
+        int col = mat[0].length;
+        int data;
+        int opcion = -1;
+        String menu = "***MENU FORMA 2***\n"
+                + "1- Generar Forma 2\n"
+                + "2- Suma de Filas\n"
+                + "3- Suma de Columnas\n"
+                + "4- Insertar Dato\n"
+                + "5- Eliminar Dato\n"
+                + "6- Sumar 2 Matrices\n"
+                + "7- Volver al menú anterior\n"
+                + "0- Salir";
+
+        do {
+            try {
+                opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
+                switch (opcion) {
+                    case 1:
+                        
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        row = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de fila (Considerela desde 0)"));
+                        col = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de Columna (Considerela desde 0)"));
+                        data = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato"));
+                        break;
+                    case 5:
+                        int op = -1;
+                        String menudos = "***ELIMINAR***\n"
+                                + "1- Eliminar por posición\n"
+                                + "2- Eliminar por dato\n"
+                                + "3- Volver al menú anterior\n"
+                                + "0- Salir";
+                        do {
+                            try {
+                                op = Integer.parseInt(JOptionPane.showInputDialog(menudos));
+                                switch (op) {
+                                    case 1:                                       
+                                        break;
+                                    case 2:                                      
+                                        break;
+                                    case 3:                                        
+                                        break;
+                                    case 0:
+                                        System.exit(0);
+                                        break;
+                                    default:
+                                        JOptionPane.showMessageDialog(null, "opcion no válida");
+                                }
+                            } catch (NumberFormatException ex) {
+                                JOptionPane.showMessageDialog(null, "opcion no válida");
+                            }
+                        } while (op != 0);
+                    case 6:
+                        break;
+                    case 7:
+                        menuppal();
+                        break;
+                    case 0:
+                        System.exit(0);
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "opcion no válida");
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "opcion no válida");
+            }
+        } while (opcion != 0);
     }
-    
+
     public static int[][] leerArchivo(String nameFile) {
         int[][] matrix = null;
         try {
             FileReader r = new FileReader(nameFile);
             BufferedReader buffer = new BufferedReader(r);
-            
+
             String temp = "";
             ArrayList<String> lines = new ArrayList<>();
-            
+
             while ((temp = buffer.readLine()) != null) {
                 lines.add(temp);
             }
@@ -190,5 +263,5 @@ public class MatricesDispersas {
         }
         return matrix;
     }
-    
+
 }

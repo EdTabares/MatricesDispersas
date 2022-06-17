@@ -290,6 +290,7 @@ public class Tripleta {
             }
 
         }
+        
         cantDatos3=k;
         tripSuma.setFilas(trip[0][0]);
         tripSuma.setColumnas(trip[0][0]);
