@@ -158,9 +158,11 @@ public class MatricesDispersas {
         int row = mat.length;
         int col = mat[0].length;
         int data;
+        Forma2 F2 = new Forma2();
+        F2.generarForma2(mat, row, col);
         int opcion = -1;
         String menu = "***MENU FORMA 2***\n"
-                + "1- Generar Forma 2\n"
+                + "1- Mostrar Forma 2\n"
                 + "2- Suma de Filas\n"
                 + "3- Suma de Columnas\n"
                 + "4- Insertar Dato\n"
@@ -174,16 +176,24 @@ public class MatricesDispersas {
                 opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
                 switch (opcion) {
                     case 1:
-                        
+                        F2.mostrar();
                         break;
                     case 2:
+                        F2.sumarFilas();
                         break;
                     case 3:
+                        F2.sumarColumnas();
                         break;
                     case 4:
                         row = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de fila (Considerela desde 0)"));
                         col = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el numero de Columna (Considerela desde 0)"));
                         data = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato"));
+                        System.out.println(F2.getPunta().getFila()+" "+F2.getPunta().getColumna());
+                        if (row > F2.getPunta().getFila()|| col > F2.getPunta().getColumna()) {
+                            JOptionPane.showMessageDialog(null, "La fila o Columna esta por fuera del tamaño de la Matriz");
+                        } else {
+                            F2.insertarDato(row, col, data);
+                        }
                         break;
                     case 5:
                         int op = -1;
@@ -196,11 +206,11 @@ public class MatricesDispersas {
                             try {
                                 op = Integer.parseInt(JOptionPane.showInputDialog(menudos));
                                 switch (op) {
-                                    case 1:                                       
+                                    case 1:
                                         break;
-                                    case 2:                                      
+                                    case 2:
                                         break;
-                                    case 3:                                        
+                                    case 3:
                                         break;
                                     case 0:
                                         System.exit(0);
