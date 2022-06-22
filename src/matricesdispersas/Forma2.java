@@ -65,7 +65,24 @@ public class Forma2 {
     }
 
     public void mostrar() {
-
+        String message = "";
+        Nodo p = punta.getLf();
+        while (p != punta) {
+            for (int i = 0; i < punta.getFila(); i++) {
+                for (int j = 0; j < punta.getColumna(); j++) {
+                    if (p.getFila() ==i && p.getColumna() == j) {
+                        message = message + p.getDato() + "   ";
+                        p = p.getLf();
+                    } else{
+                        message+=0+"   ";
+                    }                   
+                }
+                message+="\n";
+            }
+            p=punta;
+        }
+        //JOptionPane.showMessageDialog(null, message, "***FORMA 2***", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "*** FORMA2 ***\n\n" + message);
     }
 
     public void sumarFilas() {
@@ -110,20 +127,70 @@ public class Forma2 {
         }
         JOptionPane.showMessageDialog(null, "**** SUMAS COLUMNAS ****\n\n" + aux);
     }
+
+    public void insertarDato() {
+//        int k = 0;
+//        Nodo p = punta.getLf();
+//        Nodo ant = new Nodo();
+//        ant=punta;
+//        Nodo x = new Nodo();
+//        x.setFila(row);
+//        x.setColumna(col);
+//        x.setDato(data);
+//
+//        while (p != punta) {
+//            if (p.getFila() == row && p.getColumna() == col) {
+//                JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
+//            } else if (p.getFila() == x.getFila()) {
+//                if (p.getColumna() > x.getColumna()) {
+//                    ant.setLf(x);
+//                    x.setLf(p);
+//                } else {
+//                    ant = p;
+//                    p = p.getLf();
+//                }
+//            } else {
+//                ant = p;
+//                p = p.getLf();
+//            }
+//        }
+//        
+//        while (p != punta){
+//            
+//        }
+    } //Primer Intento de insertar, Malo
     
-    public void insertarDato(int row, int col, int data){
-        int k=0;
-        Nodo p = punta.getLf();
-        
-        while (p!=punta) {            
-            if (p.getFila()==row && p.getColumna()==col) {
-                JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
-            }else{
-                Nodo x = new Nodo();
-                x.setFila(row);
-                x.setColumna(col);
-                x.setDato(data);
-            }
+    public void insertarDato(int row, int col, int data) {
+        Nodo p = punta.getLf(), antF = punta, antC = punta;
+        while (p != punta && p.getFila() < row) {
+            antF = p;
+            p.getLf();
         }
+        while (p != punta && p.getFila() == row && p.getColumna() < col) {
+            antF = p;
+            p = p.getLf();
+        }
+        p = punta.getLc();
+        while (p != punta && p.getColumna() < col) {
+            antC = p;
+            p = p.getLc();
+        }
+        while (p != punta && p.getColumna() == col && p.getFila() < row) {
+            antC = p;
+            p = p.getLc();
+        }
+        if (p != punta && p.getColumna() == col && p.getFila() == row) {
+            JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
+        } else {
+            Nodo x = new Nodo(row, col, data);
+            x.setLf(antF.getLf());
+            antF.setLf(x);
+            x.setLc(p);
+            antC.setLc(x);
+        }
+    }
+    
+    public void eliminar(int dato){
+        
     }
 }
