@@ -21,7 +21,7 @@ public class Forma2 {
             return false;
         }
     }
-
+    
     public void generarForma2(int mat[][], int row, int col) {
         int i = 0, cont = 0;
         Nodo primer = new Nodo();
@@ -64,26 +64,25 @@ public class Forma2 {
         ant.setLc(punta);
     }
 
+
     public void mostrar() {
-        String message = "";
+        String message = "Ligado Filas\n";
         Nodo p = punta.getLf();
         while (p != punta) {
-            for (int i = 0; i < punta.getFila(); i++) {
-                for (int j = 0; j < punta.getColumna(); j++) {
-                    if (p.getFila() ==i && p.getColumna() == j) {
-                        message = message + p.getDato() + "   ";
-                        p = p.getLf();
-                    } else{
-                        message+=0+"   ";
-                    }                   
-                }
-                message+="\n";
-            }
-            p=punta;
+            message =   message +" [ "+ p.getDato() + " ] "+ " ---> ";
+            p= p.getLf();
         }
-        //JOptionPane.showMessageDialog(null, message, "***FORMA 2***", JOptionPane.PLAIN_MESSAGE);
+        
+        message = message + "\n\n"+"Ligado Columnas\n";
+        p = punta.getLc();
+        while (p != punta) {
+            message =   message +" [ "+ p.getDato() + " ] "+ " ---> ";
+            p= p.getLc();
+        }
+        
         JOptionPane.showMessageDialog(null, "*** FORMA2 ***\n\n" + message);
     }
+    
 
     public void sumarFilas() {
         //System.out.println(punta.getColumna() + " " + punta.getFila());
@@ -128,43 +127,12 @@ public class Forma2 {
         JOptionPane.showMessageDialog(null, "**** SUMAS COLUMNAS ****\n\n" + aux);
     }
 
-    public void insertarDato() {
-//        int k = 0;
-//        Nodo p = punta.getLf();
-//        Nodo ant = new Nodo();
-//        ant=punta;
-//        Nodo x = new Nodo();
-//        x.setFila(row);
-//        x.setColumna(col);
-//        x.setDato(data);
-//
-//        while (p != punta) {
-//            if (p.getFila() == row && p.getColumna() == col) {
-//                JOptionPane.showMessageDialog(null, "Ya existe un dato en la posición indicada");
-//            } else if (p.getFila() == x.getFila()) {
-//                if (p.getColumna() > x.getColumna()) {
-//                    ant.setLf(x);
-//                    x.setLf(p);
-//                } else {
-//                    ant = p;
-//                    p = p.getLf();
-//                }
-//            } else {
-//                ant = p;
-//                p = p.getLf();
-//            }
-//        }
-//        
-//        while (p != punta){
-//            
-//        }
-    } //Primer Intento de insertar, Malo
-    
+
     public void insertarDato(int row, int col, int data) {
         Nodo p = punta.getLf(), antF = punta, antC = punta;
         while (p != punta && p.getFila() < row) {
             antF = p;
-            p.getLf();
+            p = p.getLf();
         }
         while (p != punta && p.getFila() == row && p.getColumna() < col) {
             antF = p;
@@ -188,9 +156,84 @@ public class Forma2 {
             x.setLc(p);
             antC.setLc(x);
         }
+        mostrar();
+    }
+
+    public void eliminar(int dato) { 
+        Nodo p = new Nodo(), antF = punta, antC = punta;
+        int aux = 0;
+        p = punta.getLf();
+
+        do {
+            if (p.getDato() == dato) {
+                antF.setLf(p.getLf());
+                aux++;
+            }
+            antF = p;
+            p = p.getLf();
+        } while (p != punta);
+
+        p = p.getLc();
+        do {
+            if (p.getDato() == dato) {
+                antC.setLc(p.getLc());
+                aux++;
+            }
+            antC = p;
+            p = p.getLc();
+        } while (p != punta);
+
+        if (aux != 0) {
+            mostrar();
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el dato");
+        }
+        mostrar();
+    }
+
+    public void eliminar(int row, int col) {
+        Nodo p = new Nodo();
+        Nodo antF = new Nodo();
+        Nodo antC = new Nodo();
+        Nodo q = new Nodo();
+        p = punta.getLf();
+
+        while (p != punta && p.getFila() < row) {
+            p = p.getLf();
+        }
+
+        while (p != punta && p.getFila() == row && p.getColumna() < col) {
+            p = p.getLf();
+        }
+
+        if (p != punta && p.getFila() == row && p.getColumna() == col && p.getDato() != 0) {
+            q = p;
+            antF = q;
+            p = p.getLf();
+            while (q != p) {
+                antF = p;
+                p = p.getLf();
+            }
+            antF.setLf(p.getLf());
+
+            antC = q;
+            p = p.getLc();
+            while (q != p) {
+                antC = p;
+                p = p.getLc();
+            }
+            antC.setLc(p.getLc());
+        } else {
+            JOptionPane.showMessageDialog(null, "En la posición indicada no existe dato");
+        }
+        mostrar();
+    }
+
+    public void sumarForma2(Forma2 X) {
+         JOptionPane.showMessageDialog(null, " Minimo un 5.0 ");
     }
     
-    public void eliminar(int dato){
-        
-    }
+
 }
+
+
