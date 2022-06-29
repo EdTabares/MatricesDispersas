@@ -14,90 +14,6 @@ public class Forma1 {
         return punta;
     }
 
-//    public Nodo generarForma1(int mat[][], int row, int col) {
-//        int cont=0, aux=0, i=0, j=0;
-//        Nodo primer = new Nodo(), registro, p, q, a;
-//        punta = primer;
-//        p = punta;
-//        punta.setFila(row);
-//        punta.setColumna(col);
-//        
-//        
-//        //Step1 Generar lista de registro cabeza
-//        if(row<=col){
-//            while (i < col) {                
-//                Nodo x = new Nodo();
-//                p.setLiga(x);
-//                x.setFila(i);
-//                x.setColumna(j);
-//                p=x;
-//                i++;
-//                j++;                        
-//            }
-//        } else{
-//            while (i < row) {                
-//                Nodo x = new Nodo();
-//                p.setLiga(x);
-//                x.setFila(i);
-//                x.setColumna(j);
-//                p=x;
-//            }
-//        }        
-//        p.setLiga(punta);
-//
-//        //Step 2 Ligar por Fila
-//        p=punta.getLiga();
-//        while (p != punta) {            
-//            if (p.getFila()==cont) {
-//                if (cont < row && cont < col) {
-//                    i = cont;
-//                    registro = p;
-//                    j= 0;
-//                    while (j < col) {                        
-//                        if (mat[i][j] != 0) {
-//                            Nodo x = new Nodo();
-//                            x.setFila(i);
-//                            x.setColumna(j);
-//                            x.setDato(mat[i][j]);
-//                            p.setLf(x);
-//                            p=x;
-//                        }
-//                        j++;
-//                    }
-//                    p.setLf(registro);
-//                    p  = registro;
-//                }
-//            }
-//            p = p.getLiga();
-//            cont++;
-//        }
-//        
-//        // Step 3 Liga por Columna
-//        registro = punta.getLiga();
-//        cont=0;
-//        while (registro != punta) {            
-//            p = punta.getLiga();
-//            a = registro;
-//            q = p.getLf();
-//            while (p != punta) {                
-//                while (q != p) {                    
-//                    if (registro.getColumna() == q.getColumna()) {
-//                        a.setLc(q);
-//                        a = q;
-//                    }
-//                    q = q.getLf();
-//                }
-//                p= p.getLiga();
-//                q = p.getLf();
-//                if (p.getLf() == null) {
-//                    p.setLf(p);
-//                }
-//            }
-//            a.setLc(registro);
-//            registro = registro.getLiga();
-//        }
-//        return punta;
-//    }
     public void generarForma1(int M[][], int n, int m) {
         paso1(n, m);
         paso2(M);
@@ -169,56 +85,64 @@ public class Forma1 {
     }
 
     public void mostrar() {
-        
+
         Nodo p = punta.getLiga(), q = p.getLf();
-        String message = "Punta: \n";
-        message = message + "[ "+punta.getDato()+" ]";
-        while (p != punta) { 
+        String message = "Punta: --->";
+        while (p != punta) {
             q = p.getLf();
-            message = message + " [ " + p.getDato() + " ] " + " ---> ";
-            while (q != p) {   
-                message = message + "\n";
-                message = message + "Liga: " + q + "->" + "|" + q.getDato() + "|" + "-->" + q.getLf();
-                q=q.getLf();
+            while (q != p) {
+                message = message + "|" + q.getDato() + "| --->";
+                q = q.getLf();
             }
             message = message + " ";
             p = p.getLiga();
         }
 
-//        message = message + "\n\n" + "Ligado Columnas\n";
-//        p = punta.getLc();
-//        while (p != punta) {
-//            message = message + " [ " + p.getDato() + " ] " + " ---> ";
-//            p = p.getLc();
-//        }
-
         JOptionPane.showMessageDialog(null, "*** FORMA1 ***\n\n" + message);
 
     }
-    
-    public void mostrar2() {
-
-        Nodo p = punta.getLiga(), q = p.getLf();
-        System.out.println("Punta:");
-        System.out.println("|" + punta.getDato() + "|");
-        while (p != punta) {
-            q = p.getLf();
-            System.out.print("|" + p.getDato() + "|->");
-            while (q != p) {
-                System.out.print("Liga: " + q + "->" + "|" + q.getDato() + "|" + "-->" + q.getLf());
-                q = q.getLf();
-            }
-            System.out.println("");
-            p = p.getLiga();
-        }
-    }
 
     public void sumarFilas() {
+        Nodo p = punta.getLiga(), rc;
+        int cont = 0, suma = 0;
+        String aux = "", message = "";
+
+        while (p != punta) {
+            rc = p;
+            p = p.getLf();
+            suma = 0;
+            while (p != rc) {
+                suma = suma + p.getDato();
+                p = p.getLf();
+            }
+            message = "La suma de la Fila " + cont + " es: " + suma;
+            aux += String.valueOf(message) + "\n";
+            cont++;
+            p = rc.getLiga();
+        }
+        JOptionPane.showMessageDialog(null, "**** SUMAS FILAS ****\n\n" + aux);
 
     }
 
     public void sumarColumnas() {
+        Nodo p = punta.getLiga(), rc;
+        int cont = 0, suma = 0;
+        String aux = "", message = "";
 
+        while (p != punta) {
+            rc = p;
+            p = p.getLc();
+            suma = 0;
+            while (p != rc) {
+                suma = suma + p.getDato();
+                p = p.getLc();
+            }
+            message = "La suma de la Columna " + cont + " es: " + suma;
+            aux += String.valueOf(message) + "\n";
+            cont++;
+            p = rc.getLiga();
+        }
+        JOptionPane.showMessageDialog(null, "**** SUMAS COLUMNAS ****\n\n" + aux);
     }
 
     public void insertarDato(int row, int col, int data) {
